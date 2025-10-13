@@ -1,5 +1,6 @@
 import React from "react";
 import './DisplayInfor.scss'
+import logo from './../logo.svg'
 class DisplayInfor extends React.Component {
     state = {
         isShowlistUsers: true
@@ -24,11 +25,20 @@ class DisplayInfor extends React.Component {
                     <div>
                         {listUsers.map((user) => {
                             return (
+
+
                                 <div key={user.id} className={+user.age > 18 ? "blue" : "red"}>
-                                    <div>My name's {user.name}</div>
-                                    <div>My age's {user.age}</div>
+                                    <div>
+                                        <div>My name's {user.name}</div>
+                                        <div>My age's {user.age}</div>
+                                    </div>
+                                    <div>
+                                        <button onClick={() => this.props.handleDeleteUser(user.id)}>Delete</button>
+                                    </div>
                                     <hr />
                                 </div>
+
+
                             )
                         })}
                     </div>

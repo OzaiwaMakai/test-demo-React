@@ -9,7 +9,10 @@ import {
     SidebarContent,
 } from 'react-pro-sidebar';
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
+import { RiArrowDropDownLine } from "react-icons/ri";
 import sidebarBg from '../../assets/bg2.jpg';
+import { DiReact } from "react-icons/di";
+import { MdDashboard } from "react-icons/md";
 
 const SideBar = (props) => {
     const { image, collapsed, toggled, handleToggleSidebar } = props;
@@ -35,7 +38,8 @@ const SideBar = (props) => {
                             whiteSpace: 'nowrap',
                         }}
                     >
-                        Hoi Dan IT
+                        <DiReact color={"#61DBFB"} size={"50px"} />
+                        <span>Hoi Dan IT</span>
                     </div>
                 </SidebarHeader>
 
@@ -47,16 +51,18 @@ const SideBar = (props) => {
                         >
                             dashboard
                         </MenuItem>
-                        <MenuItem icon={<FaGem />}> components</MenuItem>
+                        {/* <MenuItem icon={<FaGem />}> components</MenuItem> */}
+
                     </Menu>
-                    <Menu iconShape="circle">
+                    <Menu icon={<FaGem />}>
                         <SubMenu
-                            suffix={<span className="badge yellow">3</span>}
-                            icon={<FaRegLaughWink />}
+                            title="Features"
+                            // suffix={<span className="badge yellow"></span>}
+                            icon={<FaGem />}
                         >
-                            <MenuItem> 1</MenuItem>
-                            <MenuItem> 2</MenuItem>
-                            <MenuItem> 3</MenuItem>
+                            <MenuItem>Quản lý Users</MenuItem>
+                            <MenuItem> Quản lý Bài Quizz</MenuItem>
+                            <MenuItem> Quản lý Câu Hỏi</MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>
@@ -69,20 +75,19 @@ const SideBar = (props) => {
                         }}
                     >
                         <a
-                            href="https://github.com/azouaoui-med/react-pro-sidebar"
+                            href="https://hoidanit.vn/"
                             target="_blank"
                             className="sidebar-btn"
                             rel="noopener noreferrer"
                         >
-                            <FaGithub />
                             <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                                viewSource
+                                &#169; Hoi Dan IT
                             </span>
                         </a>
                     </div>
                 </SidebarFooter>
             </ProSidebar>
-        </div>
+        </div >
     );
 }
 export default SideBar;

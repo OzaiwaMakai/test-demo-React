@@ -13,6 +13,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import sidebarBg from '../../assets/bg2.jpg';
 import { DiReact } from "react-icons/di";
 import { MdDashboard } from "react-icons/md";
+import { Link } from 'react-router-dom';
 
 const SideBar = (props) => {
     const { image, collapsed, toggled, handleToggleSidebar } = props;
@@ -50,9 +51,9 @@ const SideBar = (props) => {
                             suffix={<span className="badge red">new</span>}
                         >
                             dashboard
+                            <Link to="/admins" />
                         </MenuItem>
                         {/* <MenuItem icon={<FaGem />}> components</MenuItem> */}
-
                     </Menu>
                     <Menu icon={<FaGem />}>
                         <SubMenu
@@ -60,8 +61,11 @@ const SideBar = (props) => {
                             // suffix={<span className="badge yellow"></span>}
                             icon={<FaGem />}
                         >
-                            <MenuItem>Quản lý Users</MenuItem>
-                            <MenuItem> Quản lý Bài Quizz</MenuItem>
+                            <MenuItem>Quản lý Users
+                                <Link to="manage-user" />
+                            </MenuItem>
+                            <MenuItem> Quản lý Bài Quizz
+                            </MenuItem>
                             <MenuItem> Quản lý Câu Hỏi</MenuItem>
                         </SubMenu>
                     </Menu>

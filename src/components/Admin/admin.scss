@@ -1,10 +1,23 @@
 .admin-container {
     display: flex;
-    .pro-sidebar  {
+    .admin-sidebar {
+        .pro-sidebar  {
         height: 100vh;
     }
-}
+    }
 
+    .admin-content {
+        width: 100%;
+        .admin-header{
+            height: 40px;
+            border: 1px solid green;
+        }
+        .admin-main{
+            border: 1px solid red;
+
+        }
+    }
+}
 .sidebar-btn-wrapper {
     display: flex;
     align-items: center;

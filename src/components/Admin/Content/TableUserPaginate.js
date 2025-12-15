@@ -1,8 +1,15 @@
 import axios from "axios";
-const TableUser = (props) => {
-    const { listUsers } = props;
-    const { handleClickBtnUpdate, handleClickBtnView, handleClickBtnDelete } = props;
+import ReactPaginate from 'react-paginate';
 
+
+const TableUserPaginate = (props) => {
+    const { listUsers, fetchListUsersWithpaginate, pageCount, currentPage } = props;
+    const { handleClickBtnUpdate, handleClickBtnView, handleClickBtnDelete } = props;
+    const handlePageClick = (event) => {
+        fetchListUsersWithpaginate(+event.selected + 1);
+        props.setCurrentPage(+event.selected + 1)
+
+    };
     return (
         <>
             <table className="table table-hover table-bordered">
@@ -45,8 +52,28 @@ const TableUser = (props) => {
                     </tr>}
                 </tbody>
             </table>
+            <ReactPaginate
+                previousLabel="< Pre"
+                nextLabel="Next >"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                pageCount={pageCount}
+                pageRangeDisplayed={4}
+                marginPagesDisplayed={2}
+                onPageChange={handlePageClick}
+                containerClassName="pagination justify-content-center"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                activeClassName="active"
+                forcePage={props.currentPage - 1}
+            />
         </>
     );
 }
 
-export default TableUser;
+export default TableUserPaginate;

@@ -11,6 +11,7 @@ import Admin from './components/Admin/admin';
 import HomePage from './components/Home/HomePage';
 import Dashbroad from './components/Admin/Content/DashBoard';
 import ManageUser from './components/Admin/Content/ManageUser';
+import Login from './components/Auth/Login';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
@@ -25,6 +26,10 @@ root.render(
           <Route index element={<Dashbroad />} />
           <Route path="manage-user" element={<ManageUser />} />
         </Route>
+
+        <Route path="/login" element={<Login />} />
+
+
       </Routes>
     </BrowserRouter>
     {/* </React.StrictMode> */}

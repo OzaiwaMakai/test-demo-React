@@ -15,4 +15,25 @@ const postCreateNewUser = async (email, password, username, role, image) => {
 const getAllUsers = async () => {
     return axios.get('api/v1/participant/all');
 }
-export { postCreateNewUser, getAllUsers };
+
+const putUpdateUser = async (id, username, role, image) => {
+    const data = new FormData();
+    data.append('id', id);
+    data.append('username', username);
+    data.append('role', role);
+    data.append('userImage', image);
+    return axios.put('api/v1/participant', data)
+}
+
+const deleteUser = (id) => {
+    return axios.delete(`api/v1/participant`, {
+        data: { id: id }
+    });
+}
+
+const getUserWithPaginate = async (page, limit) => {
+    console.log('check page and limit: ', page, limit);
+    return axios.get(`api/v1/participant?page=${page}&limit=${limit}`);
+}
+
+export { postCreateNewUser, getAllUsers, putUpdateUser, deleteUser, getUserWithPaginate };

@@ -1,3 +1,4 @@
+import ListQuiz from "./ListQuiz";
 const User = (props) => {
     return (
         <div className="user-container">

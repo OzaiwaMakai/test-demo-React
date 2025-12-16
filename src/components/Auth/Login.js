@@ -4,10 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { postLogin } from '../../services/apiService';
 import { set } from 'lodash';
+import { useDispatch } from 'react-redux';
+import { doLogin } from '../../redux/action/userAction';
+import { ImSpinner9 } from "react-icons/im";
 const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
     const validateEmail = (email) => {
         return String(email)
             .toLowerCase()
@@ -25,15 +30,19 @@ const Login = (props) => {
             toast.error('Please enter your password');
             return;
         }
+        setIsLoading(true);
         let data = await postLogin(email, password);
 
         if (data && data.EC === 0) {
+            dispatch(doLogin(data));
             toast.success(data.EM);
+            setIsLoading(false);
             navigate('/');
         }
 
         if (data && data.EC !== 0) {
             toast.error(data.EM);
+            setIsLoading(false);
         }
     }
     return (
@@ -65,13 +74,18 @@ const Login = (props) => {
                 <span className='forgot-password'>Forgot your password?</span>
                 <div>
                     <button className='btn-submit'
-                        onClick={() => handleLogin()}>Log in</button>
+                        onClick={() => handleLogin()}
+                        disabled={isLoading}
+                    >
+                        {isLoading && <ImSpinner9 className='loader-icon' />}
+                        <span>Log in</span>
+                    </button>
                 </div>
                 <div className='back text-center'>
                     <span onClick={() => navigate('/')}>&#60;&#60; Go to HomePage</span>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 export default Login;

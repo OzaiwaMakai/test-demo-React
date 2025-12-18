@@ -1,19 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { getDataQuiz } from '../../services/apiService';
+import { getDataQuiz, postSubmitQuiz } from '../../services/apiService';
 
 import './DetailQuiz.scss';
 import _ from 'lodash';
 import Question from './Question';
+import ModalResult from './ModalResult';
 const DetailQuiz = () => {
     let params = useParams();
     const location = useLocation();
     const quizId = params.id;
     const [dataQuiz, setDataQuiz] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
+    const [isShowModalResult, setIsShowModalResult] = useState(false);
+    const [dataModelResult, setDataModelResult] = useState({});
+
     const fetchQuestionsByQuizId = async () => {
         let res = await getDataQuiz(quizId);
-        console.log('check res: ', res);
         if (res && res.EC === 0) {
             //handle data
             let raw = res.DT
@@ -52,23 +56,74 @@ const DetailQuiz = () => {
         let dataQuizClone = _.cloneDeep(dataQuiz);
         let question = dataQuizClone.find(item => +item.questionId === +questionId);
         if (question && question.answers && question.answers.length > 0) {
-            let b = question.answers.map(item => {
+            question.answers = question.answers.map(item => {
                 if (+item.id === +answerId) {
                     item.isSelected = !item.isSelected;
                 };
                 return item;
             });
-            // console.log('data b', b)
-            // setDataQuiz(b)
-            question.answers = b;
         }
         let index = dataQuizClone.findIndex(item => +item.questionId === +questionId)
         if (index > -1) {
             dataQuizClone[index] = question;
-            console.log(dataQuizClone)
             setDataQuiz(dataQuizClone)
         }
     }
+
+    const handleFishQuiz = async () => {
+        // {
+        //     "quizId": 1,
+        //         "answers": [
+        //             {
+        //                 "questionId": 1,
+        //                 "userAnswerId": [3]
+        //             },
+        //             {
+        //                 "questionId": 2,
+        //                 "userAnswerId": [6]
+        //             }
+        //         ]
+        // }
+        let payload = {
+            quizId: +quizId,
+            answers: []
+        }
+        let answers = [];
+        if (dataQuiz && dataQuiz.length > 0) {
+            dataQuiz.forEach(question => {
+
+                let questionId = question.questionId;
+                let userAnswerId = []
+                if (question && question.answers.length > 0) {
+                    question.answers.forEach(answer => {
+                        if (answer.isSelected) {
+                            userAnswerId.push(answer.id)
+                        }
+                    })
+                }
+                //todo: userAnswrId
+
+                answers.push({
+                    questionId: +questionId,
+                    userAnswerId: userAnswerId
+                })
+            })
+        }
+        payload.answers = answers
+        //submit api 
+        let res = await postSubmitQuiz(payload);
+        if (res && res.EC === 0) {
+            setDataModelResult({
+                countCorrect: res.DT.countCorrect,
+                countTotal: res.DT.countTotal,
+                quizData: res.DT.quizData,
+            })
+            setIsShowModalResult(true);
+        } else {
+            alert('something wrongs....')
+        }
+    }
+
 
     useEffect(() => {
         fetchQuestionsByQuizId(quizId);
@@ -99,7 +154,7 @@ const DetailQuiz = () => {
                         Next
                     </button>
                     <button className='btn btn-warning '
-                        onClick={() => handleNextQuestion()}>
+                        onClick={() => handleFishQuiz()}>
                         Finish
                     </button>
 
@@ -108,6 +163,10 @@ const DetailQuiz = () => {
             <div className='right-content'>
                 count down
             </div>
+            <ModalResult
+                show={isShowModalResult}
+                setShow={setIsShowModalResult}
+                dataModelResult={dataModelResult} />
         </div>
     )
 }

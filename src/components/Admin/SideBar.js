@@ -13,10 +13,11 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import sidebarBg from '../../assets/bg2.jpg';
 import { DiReact } from "react-icons/di";
 import { MdDashboard } from "react-icons/md";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SideBar = (props) => {
     const { image, collapsed, toggled, handleToggleSidebar } = props;
+    const navigate = useNavigate();
     return (
         <div>
             <ProSidebar
@@ -40,7 +41,9 @@ const SideBar = (props) => {
                         }}
                     >
                         <DiReact color={"#61DBFB"} size={"50px"} />
-                        <span>Hoi Dan IT</span>
+                        <span
+                            onClick={() => navigate('/')}>
+                            Hoi Dan IT</span>
                     </div>
                 </SidebarHeader>
 
@@ -64,9 +67,13 @@ const SideBar = (props) => {
                             <MenuItem>Quản lý Users
                                 <Link to="manage-user" />
                             </MenuItem>
-                            <MenuItem> Quản lý Bài Quizz
+                            <MenuItem>
+                                <Link to="manage-quizzes" />
+                                Quản lý Bài Quizz
                             </MenuItem>
-                            <MenuItem> Quản lý Câu Hỏi</MenuItem>
+                            <MenuItem>
+                                <Link to="manage-questions" />
+                                Quản lý Câu Hỏi</MenuItem>
                         </SubMenu>
                     </Menu>
                 </SidebarContent>

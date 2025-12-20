@@ -1,6 +1,6 @@
 import Select from 'react-select';
 import { useEffect, useState } from 'react';
-import './Questions.scss'
+import './QuizQA.scss'
 import { MdAddPhotoAlternate } from "react-icons/md";
 import { BsFillNodePlusFill, BsFillNodeMinusFill, BsFillPatchMinusFill, BsFillPatchPlusFill } from "react-icons/bs";
 import { v4 as uuidv4 } from 'uuid';
@@ -8,7 +8,7 @@ import _ from 'lodash'
 import Lightbox from "react-awesome-lightbox";
 import { toast } from 'react-toastify';
 import { getAllQuizForAdmin, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion } from "../../../../services/apiService";
-const Questions = (props) => {
+const QuizQA = (props) => {
     const initQuestion = [
         {
             id: uuidv4(),
@@ -220,10 +220,6 @@ const Questions = (props) => {
 
     return (
         <div className="question-container">
-            <div className="title">
-                Manage questions
-            </div>
-            <hr />
             <div className="add-new-question">
                 <div className='col-6 form-group'>
                     <label className='mb-2'>Select Quiz</label>
@@ -335,4 +331,4 @@ const Questions = (props) => {
     )
 }
 
-export default Questions
+export default QuizQA

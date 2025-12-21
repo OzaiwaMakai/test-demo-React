@@ -7,6 +7,7 @@ import { set } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { doLogin } from '../../redux/action/userAction';
 import { ImSpinner9 } from "react-icons/im";
+import Language from '../Header/Language';
 const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -45,11 +46,18 @@ const Login = (props) => {
             setIsLoading(false);
         }
     }
+
+    const handlekeyDown = (event) => {
+        if (event.key === 'Enter') {
+            handleLogin()
+        }
+    }
     return (
         <div className="login-container">
             <div className='header'>
                 <span>Don't have an account?</span>
                 <button className='btn-signup' onClick={() => navigate('/register')}>Sign up</button>
+                <Language />
             </div>
             <div className='title col-4 mx-auto'>
                 Hoi dan IT
@@ -69,7 +77,8 @@ const Login = (props) => {
                     <label>Password </label>
                     <input type={'password'} className='form-control' placeholder='Enter password'
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)} />
+                        onChange={(e) => setPassword(e.target.value)}
+                        onKeyDown={(event) => handlekeyDown(event)} />
                 </div>
                 <span className='forgot-password'>Forgot your password?</span>
                 <div>

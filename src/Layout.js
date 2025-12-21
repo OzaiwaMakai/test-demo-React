@@ -13,22 +13,32 @@ import ListQuiz from './components/User/ListQuiz';
 import DetailQuiz from './components/User/DetailQuiz';
 import ManageQuiz from './components/Admin/Content/Quix/ManageQuiz';
 import Questions from './components/Admin/Content/Question/Questions';
-
+import PrivateRoute from './routes/PrivateRoute';
+import { Suspense } from 'react';
 const NotFound = () => {
     return <div className='alert alert-danger container mt-3'>404 Not Found data with current URL</div>;
 }
+
 const Layout = (props) => {
     return (
-        <>
+        <Suspense fallback={<div>Loading...</div>}>
+
             <Routes>
                 <Route path="/" element={<App />} >
                     <Route index element={<HomePage />} />
-                    <Route path="users" element={<ListQuiz />} />
+
+                    <Route path="users" element={
+                        <PrivateRoute>
+                            <ListQuiz />
+                        </PrivateRoute>
+                    } />
                 </Route>
 
                 <Route path="/quiz/:id" element={<DetailQuiz />} />
 
-                <Route path="/admins" element={<Admin />} >
+                <Route path="/admins" element={
+                    <PrivateRoute>
+                        <Admin /></PrivateRoute>} >
                     <Route index element={<Dashbroad />} />
                     <Route path="manage-user" element={<ManageUser />} />
                     <Route path="manage-quizzes" element={<ManageQuiz />} />
@@ -37,6 +47,7 @@ const Layout = (props) => {
 
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/test" element={<PrivateRoute />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
 
@@ -52,7 +63,7 @@ const Layout = (props) => {
                 pauseOnHover
                 theme="light"
             />
-        </>
+        </Suspense>
     )
 }
 export default Layout;

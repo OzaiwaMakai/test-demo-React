@@ -9,8 +9,22 @@
     .admin-content {
         width: 100%;
         .admin-header{
-            height: 40px;
-            border: 1px solid green;
+            height: 60px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px 0 10px;
+            .leftside{
+              cursor: pointer;
+              font-size: 25px;
+              color: rgb(90, 90, 90);
+            }
+            .rightside{
+              display: flex;
+              gap: 20px;
+              margin-right: 20px;
+            }
         }
         .admin-main{
           height: calc(100vh - 40px);

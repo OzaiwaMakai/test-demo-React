@@ -2,11 +2,11 @@
     .header{
         height: 45px;
         text-align: right;
-        padding: 0px 100px;
+        padding: 10px 100px;
         display: flex;
         align-items: center;
         justify-content: flex-end;
-
+        gap: 10px;
         button{
             width: 80px;
             height: 30px;

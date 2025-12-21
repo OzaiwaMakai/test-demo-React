@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { postRegister } from '../../services/apiService';
 import { FaEye } from "react-icons/fa";
 import { IoMdEyeOff } from "react-icons/io";
+import Language from '../Header/Language';
 
 const Register = (props) => {
 
@@ -61,6 +62,7 @@ const Register = (props) => {
             <div className='header'>
                 <span>Already have an account?</span>
                 <button className='btn-signup' onClick={() => navigate('/login')}>Sign in</button>
+                <Language />
             </div>
             <div className='title col-4 mx-auto'>
                 Hoi dan IT
